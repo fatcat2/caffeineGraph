@@ -1,0 +1,37 @@
+/* 13. Basic Styling with CSS */
+
+/* Style the lines by removing the fill and applying a stroke */
+.line {
+    fill: none;
+    stroke: #cfad89;
+    stroke-width: 3;
+}
+
+.overlay {
+    fill: none;
+    pointer-events: all;
+}
+
+/* Style the dots by assigning a fill and stroke */
+.dot {
+    fill: #cfad89;
+    stroke: #fff;
+}
+
+.focus circle {
+    fill: none;
+    stroke: steelblue;
+}
+
+div.tooltip {   
+    position: absolute;         
+    text-align: center;         
+    width: 100px;                    
+    height: 30px;                   
+    padding: 2px;               
+    font: 12px sans-serif;      
+    background: lightsteelblue; 
+    border: 0px;        
+    border-radius: 8px;         
+    pointer-events: none;           
+}
