@@ -37,7 +37,7 @@ function showInfo(data, tabletop) {
     x.style.display = "none";
 
     // Use tabletop to scrape sheet data
-    data = tabletop.sheets("2019")['elements'];
+    data = tabletop.sheets("2020")['elements'];
 
     // Get length of data
     var n = data.length;
@@ -46,9 +46,11 @@ function showInfo(data, tabletop) {
     var totalListTMP = [];
     var dataset = [];
     for(var row in data){
-        dataset.push({"date": new Date(data[row]["Date"]), "total": data[row]["Total"]});
+        dataset.push({"date": new Date(data[row]["Date"]), "total": data[row]["Total"], "boba": data[row]["Boba"]});
         totalListTMP.push(data[row]["Total"]);
     }
+
+    console.log("BOBS");
 
     var yMax = Math.max(...totalListTMP) + 1;
     //console.log(yMax);
@@ -81,6 +83,11 @@ function showInfo(data, tabletop) {
     var line = d3.line()
         .x(function(d) { return xScale(d.date); }) // set the x values for the line generator
         .y(function(d) { return yScale(d.total); }) // set the y values for the line generator
+        .curve(d3.curveCatmullRom.alpha(0.5));
+
+    var lineBoba = d3.line()
+        .x(function(d) { return xScale(d.date); }) // set the x values for the line generator
+        .y(function(d) { return yScale(d.boba); }) // set the y values for the line generator
         .curve(d3.curveCatmullRom.alpha(0.5));
 
     // Div for tooltip
@@ -119,6 +126,12 @@ function showInfo(data, tabletop) {
         .attr("class", "line") // Assign a class for styling
         .attr("d", line); // 11. Calls the line generator
 
+    // 9. Append the path, bind the data, and call the line generator
+    svg.append("path")
+        .datum(dataset) // 10. Binds data to the line
+        .attr("class", "lineBoba") // Assign a class for styling
+        .attr("d", lineBoba); // 11. Calls the line generator
+
     // 12. Appends a circle for each datapoint
     svg.selectAll(".dot")
         .data(dataset)
@@ -132,6 +145,27 @@ function showInfo(data, tabletop) {
                 .duration(200)
                 .style("opacity", .9);
             div	.html(d.date.toDateString() + "<br/>Total:"  + d.total)
+                .style("left", (d3.event.pageX) + "px")
+                .style("top", (d3.event.pageY - 28) + "px");
+        })
+        .on("mouseout", function(d) {
+            div.transition()
+                .duration(500)
+                .style("opacity", 0);
+        });
+
+    svg.selectAll(".dot")
+        .data(dataset)
+        .enter().append("circle") // Uses the enter().append() method
+        .attr("class", "dotBoba") // Assign a class for styling
+        .attr("cx", function(d) { return xScale(d.date) })
+        .attr("cy", function(d) { return yScale(d.boba) })
+        .attr("r", 5)
+        .on("mouseover", function(d) {
+            div.transition()
+                .duration(200)
+                .style("opacity", .9);
+            div .html(d.date.toDateString() + "<br/>Boba:"  + d.boba)
                 .style("left", (d3.event.pageX) + "px")
                 .style("top", (d3.event.pageY - 28) + "px");
         })
