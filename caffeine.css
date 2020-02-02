@@ -1,6 +1,27 @@
 /* 13. Basic Styling with CSS */
 
 /* Style the lines by removing the fill and applying a stroke */
+
+@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+
+html {
+    font-family: 'Open Sans', sans-serif;
+}
+
+#graph{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#spinner{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
 .line {
     fill: none;
     stroke: #cfad89;
