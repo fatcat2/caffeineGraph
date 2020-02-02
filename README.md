@@ -1,6 +1,6 @@
 # Ryan's Caffeine Graph
 
-![image of caffeine graph](https://i.imgur.com/1tOv4De.png An updated image of the caffeine graph.)
+![image of caffeine graph](https://i.imgur.com/1tOv4De.png "An updated image of the caffeine graph.")
 
 This is really just a way for me to practice with D3.js. I recently started using it and it seems pretty fun and intuitive! I'm using a Google Sheet as my data source, and using tabletop.js to convert the Google Sheet into a dictionary.
 
